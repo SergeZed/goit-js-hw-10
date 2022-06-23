@@ -21,14 +21,11 @@ function onInputChancge() {
       .then(makeInterface)
       .catch(error => {
         // console.log('my error: ', error);
-        Notify.failure(
-          'Can`t found this country, but don`t worry, try again ;)',
-          {
-            position: 'center-top',
-            timeout: 3000,
-            fontSize: '18px',
-          }
-        );
+        Notify.failure('Oops, there is no country with that name', {
+          position: 'center-top',
+          timeout: 3000,
+          fontSize: '18px',
+        });
       });
   }
 }
@@ -40,11 +37,14 @@ function makeInterface(listOfCountries) {
   clearCountry();
   if (listOfCountries.length > 10) {
     // console.log('info');
-    return Notify.info('All is good, go on... I need more letters', {
-      position: 'center-top',
-      timeout: 2000,
-      fontSize: '18px',
-    });
+    return Notify.info(
+      'Too many matches found. Please enter a more specific name.',
+      {
+        position: 'center-top',
+        timeout: 2000,
+        fontSize: '18px',
+      }
+    );
   } else if (listOfCountries.length === 1) {
     refs.countryInfoContainer.innerHTML = makeCountryMarkup(listOfCountries[0]);
   } else if (listOfCountries.length === 0) {
